@@ -1,26 +1,37 @@
 import java.awt.Color;
 
-/**
- * Demonstrates the scaling (resizing) operation featured by Runigram.java. 
- * The program recieves three command-line arguments: a string representing the name
- * of the PPM file of a source image, and two integers that specify the width and the
- * height of the scaled, output image. For example, to scale/resize ironman.ppm to a width
- * of 100 pixels and a height of 900 pixels, use: java Editor2 ironman.ppm 100 900
- */
 public class Editor2 {
 
-	public static void main (String[] args){
-		String fileName = args[0];
-		int width = Integer.parseInt(args[1]);
-		int height = Integer.parseInt(args[2]);
-		Color[][] imageIn = Runigram.read(fileName);
-		Color[][] scaledImage = Runigram.scaled(imageIn, width, height);
-		// Displays the source image
-		Runigram.setCanvas(imageIn);
-		Runigram.display(imageIn);
-		StdDraw.pause(3000); 
-		// Displays the scaled image.
-		Runigram.setCanvas(scaledImage);
-		Runigram.display(scaledImage);					
-	}
+    public static void main(String[] args) {
+        // Check for the correct number of command-line arguments
+        if (args.length != 3) {
+            System.err.println("Usage: java Editor2 <image_file.ppm> <new_width> <new_height>");
+            System.exit(1); // Exit with an error code
+        }
+
+        String fileName = args[0]; // The filename of the PPM image
+        int width = Integer.parseInt(args[1]); // The desired width for the scaled image
+        int height = Integer.parseInt(args[2]); // The desired height for the scaled image
+
+        // Read the original image using Runigram.read
+        Color[][] imageIn = Runigram.read(fileName);
+
+        // Check if the image was successfully read
+        if (imageIn == null) {
+            System.err.println("Failed to read the image file: " + fileName);
+            System.exit(1); // Exit with an error code
+        }
+
+        // Scale the image to the desired dimensions using Runigram.scaled
+        Color[][] scaledImage = Runigram.scaled(imageIn, width, height);
+
+        // Display the original image
+        Runigram.setCanvas(imageIn);
+        Runigram.display(imageIn);
+        StdDraw.pause(3000); // Pause for 3 seconds
+
+        // Display the scaled image
+        Runigram.setCanvas(scaledImage);
+        Runigram.display(scaledImage);
+    }
 }
