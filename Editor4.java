@@ -3,29 +3,29 @@ import java.awt.Color;
 public class Editor4 {
 
     public static void main(String[] args) {
-        // Check for the correct number of command-line arguments
+        // Ensure the correct number of command-line arguments are provided
         if (args.length != 2) {
-            System.err.println("Usage: java Editor4 <image_file.ppm> <steps>");
-            System.exit(1); // Exit with an error code
+            System.err.println("Usage: java Editor4 <source_image.ppm> <steps>");
+            System.exit(1); // Exit with an error status
         }
 
-        String fileName = args[0]; // The filename of the PPM image
+        String sourceFileName = args[0]; // The filename of the source PPM image
         int steps = Integer.parseInt(args[1]); // The number of steps for the morphing process
 
-        // Read the original image using Runigram.read
-        Color[][] imageIn = Runigram.read(fileName);
+        // Read the source image using Runigram.read
+        Color[][] sourceImage = Runigram.read(sourceFileName);
 
-        // Check if the image was successfully read
-        if (imageIn == null) {
-            System.err.println("Failed to read the image file: " + fileName);
-            System.exit(1); // Exit with an error code
+        // Check if the source image was successfully read
+        if (sourceImage == null) {
+            System.err.println("Failed to read the source image file: " + sourceFileName);
+            System.exit(1); // Exit with an error status
         }
 
-        // Create a grayscaled version of the original image
-        Color[][] grayScaledImage = Runigram.grayScaled(imageIn);
+        // Convert the source image to its grayscale version
+        Color[][] grayImage = Runigram.grayScaled(sourceImage);
 
-        // Morph the original image into its grayscaled version
-        Runigram.setCanvas(imageIn); // Set the canvas size based on the original image
-        Runigram.morph(imageIn, grayScaledImage, steps);
+        // Morph the source image into its grayscale version using the specified number of steps
+        Runigram.setCanvas(sourceImage); // Set the canvas size based on the source image
+        Runigram.morph(sourceImage, grayImage, steps);
     }
 }
